@@ -1,0 +1,72 @@
+﻿@model ShipBobOrders.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<body ng-app="Orders" ng-controller="OrderDetailController">
+    <h2>Details</h2>
+
+    <div>
+        <h4>Order</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.User.FullName)
+            </dt>
+
+            <dd>
+                <a href="/User/Details/@Model.User.ID">@Html.DisplayFor(model => model.User.FullName)</a>
+            </dd>
+
+            <dt>
+                Tracking ID
+            </dt>
+
+            <dd>
+                {{TrackingID}}
+            </dd>
+
+            <dt>
+                City
+            </dt>
+
+            <dd>
+                {{City}}
+            </dd>
+
+            <dt>
+                State
+            </dt>
+
+            <dd>
+                {{State}}
+            </dd>
+
+            <dt>
+                Zip
+            </dt>
+
+            <dd>
+                {{Zip}}
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.OrderID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
+    <script>
+        var Orders = angular.module('Orders', ['controllers']);
+        var controllers = angular.module('controllers', []);
+        controllers.controller('OrderDetailController', ['$scope', function ($scope) {
+            $scope.TrackingID = @Html.Raw(Json.Encode(Model.TrackingID));
+            $scope.City = @Html.Raw(Json.Encode(Model.City));
+            $scope.State = @Html.Raw(Json.Encode(Model.State));
+            $scope.Zip = @Html.Raw(Json.Encode(Model.Zip));
+        }]);
+        Orders.$inject = ['scope'];
+    </script>
+</body>
